@@ -62,8 +62,4 @@ CREATE TRIGGER update_products_updated_at BEFORE UPDATE ON products
 INSERT INTO resellers (name, api_token_hash) VALUES 
     ('Test Reseller', '$2b$10$YQ6P8ZXqKzYs8kQjG.RlU.Vv0E7GxJxGnxF5qZwM5RlHUuZvYJYYK');
 
--- Comments
-COMMENT ON TABLE products IS 'Base table for all product types';
-COMMENT ON TABLE coupons IS 'Coupon-specific product information';
-COMMENT ON TABLE resellers IS 'External reseller accounts with API access';
-COMMENT ON COLUMN coupons.minimum_sell_price IS 'Calculated as: cost_price * (1 + margin_percentage / 100)';
+
