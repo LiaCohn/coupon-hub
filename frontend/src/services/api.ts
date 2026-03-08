@@ -1,6 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// In development: uses Vite proxy (localhost:5173 -> localhost:3000)
+// In production: uses Nginx proxy (port 80 -> backend:3000)
+// Empty string means "same origin" - requests go through nginx
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 // Admin API client
 export const adminApi: AxiosInstance = axios.create({
