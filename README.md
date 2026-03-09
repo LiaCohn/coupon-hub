@@ -392,14 +392,34 @@ Coupon_Hub/
 
 ## 💻 Development
 
-### Local Development (without Docker)
+### Docker Development (Recommended)
+
+The docker-compose setup is the intended way to run this project. It automatically handles all configuration:
+
+```bash
+# Start all services with logs
+docker-compose up
+
+# Rebuild after code changes
+docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d
+```
+
+### Local Development (Advanced)
+
+For advanced debugging without Docker, you'll need PostgreSQL running locally:
 
 #### Backend
 ```bash
 cd backend
 npm install
-cp .env.example .env
-# Edit .env with your database connection
+
+# Set environment variables (no .env file needed for Docker)
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/coupon_hub"
+export PORT=3000
+export NODE_ENV=development
 
 # Run migrations
 npm run migrate
@@ -412,12 +432,12 @@ npm run dev
 ```bash
 cd frontend
 npm install
-cp .env.example .env
-# Edit .env with your API URL
 
-# Start development server
+# Start development server (runs on port 5173)
 npm run dev
 ```
+
+**Note:** Local development requires PostgreSQL to be installed and running on your machine.
 
 ### Database Migrations
 
@@ -569,13 +589,20 @@ The authentication middleware pattern is demonstrated in the Reseller API (`/api
 
 ### Environment Variables
 
-**Never commit these to version control:**
+**Current Setup (Development):**
+For local Docker development, environment variables are defined in `docker-compose.yml`. This is acceptable for development environments.
+
+**Production Deployment:**
+For production, **never commit credentials to version control**. Use:
+- Environment variables injected by your hosting platform (AWS, Azure, etc.)
+- Secret management services (AWS Secrets Manager, HashiCorp Vault, etc.)
+- `.env` files (already in `.gitignore`) if deploying manually
+
+**Never commit to version control:**
 - Database passwords
 - API tokens
 - Admin credentials
 - Any secrets or credentials
-
-Use `.env` files (already in `.gitignore`).
 
 ## 🚀 Future Enhancements
 
